@@ -123,9 +123,13 @@ def load_a1_into_canvas(
 
     def find_score(row: pandas.Series) -> float:
         try:
-            return mitx_df["a1_grade"][
-                mitx_df["username"] == row[CANVAS_LOGIN_ID_NAME]
-            ].iloc[0]
+            return round(
+                mitx_df["a1_grade"][
+                    mitx_df["username"] == row[CANVAS_LOGIN_ID_NAME]
+                ].iloc[0]
+                * 10,
+                1,
+            )
         except IndexError:
             logger.warning(
                 f"Could not find student {row[CANVAS_LOGIN_ID_NAME]} ({row['Student']}) in mitx"
